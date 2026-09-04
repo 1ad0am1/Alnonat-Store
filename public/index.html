@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>النون STORE | متجر أطفال</title>
+<meta name="description" content="النون STORE — منتجات جميلة للأطفال وسكتشات مميزة من صور أطفالكم.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-side right-side">
+      <button class="icon-btn" id="cartBtn" aria-label="سلة المشتريات"><span class="cart-icon">🛒</span><span class="cart-count" id="cartCount">0</span></button>
+      <button class="icon-btn search-btn" aria-label="بحث" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">⌕</button>
+    </div>
+    <a class="brand" href="#top" aria-label="النون STORE">
+      <span class="brand-word">النون</span><span class="brand-store">STORE</span>
+      <img src="/uploads/header-girl.jpg" alt="" class="header-girl">
+    </a>
+    <a class="contact-btn" href="https://wa.me/201012029678?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A7%D9%84%D9%86%D9%88%D9%86" target="_blank" rel="noopener">◔ تواصل معنا</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-art">
+    <img src="/uploads/hero-girl.jpg" alt="طفلة ودبدوب" class="hero-image">
+  </div>
+  <div class="hero-copy">
+    <div class="eyebrow">♥ متجر صغير لكل ما هو جميل</div>
+    <h1>مرحبا بكم <span>يا نونات</span></h1>
+    <p>كل ما تحتاجونه في مكان واحد</p>
+    <a class="primary-btn hero-btn" href="#products">تسوق الآن <span>🛍</span></a>
+  </div>
+  <span class="decor d1">★</span><span class="decor d2">♥</span><span class="decor d3">★</span><span class="decor d4">♥</span>
+</section>
+
+<section class="products-section" id="products">
+  <div class="section-heading"><span></span><h2>منتجاتنا</h2><span></span></div>
+  <div id="productsGrid" class="products-grid"><div class="loading">جاري تحميل المنتجات...</div></div>
+</section>
+
+<section class="features">
+  <div class="feature"><b>🎁</b><div><strong>تغليف هدايا</strong><span>لكل طلب</span></div></div>
+  <div class="feature"><b>🚚</b><div><strong>توصيل سريع</strong><span>إلى جميع أنحاء مصر</span></div></div>
+  <div class="feature"><b>🛡</b><div><strong>منتجات عالية الجودة</strong><span>نحرص على رضاكم</span></div></div>
+  <div class="feature"><b>🎧</b><div><strong>خدمة عملاء</strong><span>متاحة 24/7</span></div></div>
+</section>
+</main>
+
+<footer id="contact" class="footer">
+  <div class="footer-brand">
+    <div class="footer-brand-row"><div class="footer-logo">النون</div><div class="footer-girl"><img src="/uploads/header-girl.jpg" alt=""></div></div>
+    <p>كل ما تحتاجونه في مكان واحد</p>
+    <div class="social"><a href="https://www.facebook.com/" target="_blank">f</a><a href="https://www.instagram.com/" target="_blank">◎</a><a href="https://www.tiktok.com/" target="_blank">♪</a><a href="https://wa.me/201012029678" target="_blank">◔</a></div>
+  </div>
+  <div class="footer-links"><h3>روابط سريعة</h3><a href="#top">الرئيسية</a><a href="#products">جميع المنتجات</a><a href="#contact">تواصل معنا</a></div>
+  <div class="footer-contact"><h3>تواصل معنا</h3><p>☎ <b>01012029678</b></p><p>✉ <b>mf409170@gmail.com</b></p><p>⌖ <b>السادات - المنوفية</b></p></div>
+</footer>
+<div class="copyright">♥ جميع الحقوق محفوظة للنون STORE 2026 ♥</div>
+
+<div id="cartModal" class="modal hidden"><div class="modal-card"><button class="close" data-close>×</button><h2>سلة المشتريات</h2><div id="cartItems"></div><div class="cart-total">الإجمالي: <b id="cartTotal">0</b> ج.م</div><button class="primary-btn full" id="checkoutBtn">إتمام الطلب</button></div></div>
+<div id="orderModal" class="modal hidden"><div class="modal-card"><button class="close" data-close>×</button><h2>إتمام الطلب</h2><p class="muted">لو الطلب سكتش، ارفق صور الأطفال هنا وسيتم إرسال الطلب عبر واتساب.</p><form id="orderForm"><input name="customer" placeholder="الاسم" required><input name="phone" placeholder="رقم الهاتف" required><input name="address" placeholder="العنوان" required><textarea name="note" placeholder="ملاحظات إضافية"></textarea><label class="file-label">إرفاق صور الأطفال <input type="file" name="photos" accept="image/*" multiple></label><button class="primary-btn full">إرسال الطلب عبر واتساب</button></form></div></div>
+<script src="/app.js"></script>
+</body>
+</html>
