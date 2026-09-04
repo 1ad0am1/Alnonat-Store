@@ -3,12 +3,14 @@
     "id": "sketch-15",
     "name": "سكتش رسم للأطفال – 15 ورقة",
     "price": 400,
-    "bundlePrice": 700,
-    "bundleQty": 2,
     "description": "سكتش رسم مكوّن من 15 ورقة، نحول صور أطفالكم إلى رسومات جميلة قابلة للتلوين والاحتفاظ بها كذكرى مميزة.",
     "image": "/uploads/sketch-15-sheets.jpg",
+    "images": [
+      "/uploads/sketch-15-sheets.jpg"
+    ],
     "badge": "الأكثر طلبًا",
-    "active": true
+    "bundleQty": 2,
+    "bundlePrice": 700
   },
   {
     "id": "teddy-bear",
@@ -19,7 +21,10 @@
     "description": "دبدوب لطيف وناعم مناسب للأطفال والهدايا.",
     "image": "/uploads/teddy-bear.jpg",
     "badge": "",
-    "active": true
+    "active": true,
+    "images": [
+      "/uploads/teddy-bear.jpg"
+    ]
   },
   {
     "id": "school-pens",
@@ -30,7 +35,10 @@
     "description": "مجموعة أدوات مدرسية بألوان وتصميمات مبهجة للأطفال.",
     "image": "/uploads/school-pens.jpg",
     "badge": "",
-    "active": true
+    "active": true,
+    "images": [
+      "/uploads/school-pens.jpg"
+    ]
   },
   {
     "id": "kids-bottle",
@@ -39,7 +47,10 @@
     "description": "زجاجة مياه عملية وخفيفة بتصميم لطيف للأطفال.",
     "image": "/uploads/kids-bottle.jpg",
     "bundleQty": 2,
-    "bundlePrice": 0
+    "bundlePrice": 0,
+    "images": [
+      "/uploads/kids-bottle.jpg"
+    ]
   },
   {
     "id": "unicorn-bag",
@@ -50,7 +61,10 @@
     "description": "شنطة أطفال بتصميم يونيكورن لطيف للاستخدام اليومي.",
     "image": "/uploads/unicorn-bag.jpg",
     "badge": "",
-    "active": true
+    "active": true,
+    "images": [
+      "/uploads/unicorn-bag.jpg"
+    ]
   },
   {
     "id": "kids-watch",
@@ -61,7 +75,10 @@
     "description": "ساعة أطفال بتصميم مرح ومناسب للاستخدام اليومي.",
     "image": "/uploads/kids-watch.jpg",
     "badge": "",
-    "active": true
+    "active": true,
+    "images": [
+      "/uploads/kids-watch.jpg"
+    ]
   },
   {
     "id": "hair-bows",
@@ -72,7 +89,10 @@
     "description": "مجموعة ربطات شعر بألوان وتصميمات جميلة للبنات.",
     "image": "/uploads/hair-bows.jpg",
     "badge": "",
-    "active": true
+    "active": true,
+    "images": [
+      "/uploads/hair-bows.jpg"
+    ]
   },
   {
     "id": "rabbit-light",
@@ -83,6 +103,9 @@
     "description": "إضاءة لطيفة تضيف لمسة جميلة لغرفة الأطفال.",
     "image": "/uploads/rabbit-light.jpg",
     "badge": "",
-    "active": true
+    "active": true,
+    "images": [
+      "/uploads/rabbit-light.jpg"
+    ]
   }
 ]
