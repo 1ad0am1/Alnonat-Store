@@ -6,7 +6,8 @@
     "description": "سكتش رسم مكوّن من 15 ورقة، نحول صور أطفالكم إلى رسومات جميلة قابلة للتلوين والاحتفاظ بها كذكرى مميزة.",
     "image": "/uploads/sketch-15-sheets.jpg",
     "images": [
-      "/uploads/sketch-15-sheets.jpg"
+      "/uploads/sketch-15-sheets.jpg",
+      "https://raw.githubusercontent.com/1ad0am1/Alnonat-Store/main/public/uploads/1788545747588-dycos7-photo1.png"
     ],
     "badge": "الأكثر طلبًا",
     "bundleQty": 2,
