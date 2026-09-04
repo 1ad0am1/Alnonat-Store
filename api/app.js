@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 
 const app = express();
-const upload = multer({ storage: multer.memoryStorage(), limits: { files: 12, fileSize: 2 * 1024 * 1024 } });
+const upload = multer({ storage: multer.memoryStorage() });
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -63,7 +63,7 @@ async function uploadFileToGithub(file){
   const safeExt=['.jpg','.jpeg','.png','.webp','.gif'].includes(ext)?ext:'.jpg';
   const base=String(file.originalname||'image').replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50)||'image';
   const filename=`${Date.now()}-${Math.random().toString(36).slice(2,8)}-${base}${safeExt}`;
-  const path=`public/uploads/${filename}`;
+  const path=`uploads/${filename}`;
   const content=file.buffer.toString('base64');
   await githubRequest(`${GH_API}/repos/${cfg.repo}/contents/${path}`,{
     method:'PUT',
@@ -123,5 +123,4 @@ app.post(['/api/admin/products','/admin/products'],auth,upload.none(),async(req,
 app.put(['/api/admin/products/:id','/admin/products/:id'],auth,upload.none(),async(req,res)=>{try{const products=await readProducts();const i=products.findIndex(p=>p.id===req.params.id);if(i<0)return res.status(404).json({error:'المنتج غير موجود.'});const product=cleanProduct({...req.body,id:req.params.id},products[i]);products[i]=product;await writeProducts(products,`Update product ${product.id}`);res.json({ok:true,product})}catch(e){handleError(res,e)}});
 app.delete(['/api/admin/products/:id','/admin/products/:id'],auth,async(req,res)=>{try{const products=await readProducts();const next=products.filter(p=>p.id!==req.params.id);if(next.length===products.length)return res.status(404).json({error:'المنتج غير موجود.'});await writeProducts(next,`Delete product ${req.params.id}`);res.json({ok:true})}catch(e){handleError(res,e)}});
 app.post(['/api/order','/order'],async(req,res)=>res.json({ok:true,orderId:`NN-${Date.now().toString().slice(-8)}`}));
-app.use((err,req,res,next)=>{ if(err instanceof multer.MulterError){ return res.status(400).json({error: err.code==='LIMIT_FILE_SIZE'?'كل صورة يجب ألا تتجاوز 2 ميجابايت.':'عدد/حجم الصور أكبر من المسموح.'}); } if(err) return handleError(res,err); next(); });
 module.exports=app;
