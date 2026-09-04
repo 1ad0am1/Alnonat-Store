@@ -1,120 +1,18 @@
-const express = require('express');
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '123456';
-const DATA_FILE = path.join(__dirname, 'data', 'products.json');
-const uploadDir = path.join(__dirname, 'public', 'uploads');
-
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, uploadDir),
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase() || '.jpg';
-    cb(null, `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`);
-  }
-});
-const upload = multer({
-  storage,
-  limits: { fileSize: 8 * 1024 * 1024 },
-  fileFilter: (_req, file, cb) => {
-    if (/^image\/(jpeg|png|webp)$/.test(file.mimetype)) cb(null, true);
-    else cb(new Error('يسمح فقط بصور JPG أو PNG أو WEBP'));
-  }
-});
-
-app.use(express.json({ limit: '1mb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-function readProducts() {
-  try { return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')); }
-  catch { return []; }
-}
-function writeProducts(products) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(products, null, 2), 'utf8');
-}
-function auth(req, res, next) {
-  const supplied = req.headers['x-admin-password'] || req.body?.password || req.query?.password;
-  if (supplied !== ADMIN_PASSWORD) return res.status(401).json({ error: 'كلمة مرور الإدارة غير صحيحة' });
-  next();
-}
-
-app.get('/api/products', (_req, res) => {
-  res.json(readProducts().filter(p => p.active !== false));
-});
-
-app.get('/api/admin/products', auth, (_req, res) => res.json(readProducts()));
-
-app.post('/api/admin/products', auth, upload.single('image'), (req, res) => {
-  const products = readProducts();
-  const id = (req.body.id || `${Date.now()}`).trim();
-  const product = {
-    id,
-    name: (req.body.name || '').trim(),
-    price: Number(req.body.price || 0),
-    bundlePrice: Number(req.body.bundlePrice || 0),
-    bundleQty: Number(req.body.bundleQty || 2),
-    description: (req.body.description || '').trim(),
-    badge: (req.body.badge || '').trim(),
-    image: req.file ? `/uploads/${req.file.filename}` : (req.body.image || ''),
-    active: req.body.active !== 'false'
-  };
-  if (!product.name || !product.price || !product.image) return res.status(400).json({ error: 'اكتب اسم المنتج والسعر وأضف صورة.' });
-  const index = products.findIndex(p => p.id === id);
-  if (index >= 0) products[index] = product; else products.push(product);
-  writeProducts(products);
-  res.json(product);
-});
-
-app.put('/api/admin/products/:id', auth, upload.single('image'), (req, res) => {
-  const products = readProducts();
-  const index = products.findIndex(p => p.id === req.params.id);
-  if (index < 0) return res.status(404).json({ error: 'المنتج غير موجود' });
-  const old = products[index];
-  products[index] = {
-    ...old,
-    name: (req.body.name ?? old.name).trim(),
-    price: Number(req.body.price ?? old.price),
-    bundlePrice: Number(req.body.bundlePrice ?? old.bundlePrice),
-    bundleQty: Number(req.body.bundleQty ?? old.bundleQty),
-    description: (req.body.description ?? old.description).trim(),
-    badge: (req.body.badge ?? old.badge).trim(),
-    active: req.body.active === undefined ? old.active : req.body.active !== 'false',
-    image: req.file ? `/uploads/${req.file.filename}` : old.image
-  };
-  writeProducts(products);
-  res.json(products[index]);
-});
-
-app.delete('/api/admin/products/:id', auth, (req, res) => {
-  const products = readProducts();
-  const next = products.filter(p => p.id !== req.params.id);
-  if (next.length === products.length) return res.status(404).json({ error: 'المنتج غير موجود' });
-  writeProducts(next);
-  res.json({ ok: true });
-});
-
-app.post('/api/order', upload.array('photos', 10), (req, res) => {
-  const orderId = `NN-${Date.now().toString().slice(-8)}`;
-  const photos = (req.files || []).map(f => `/uploads/${f.filename}`);
-  res.json({
-    orderId,
-    customer: req.body.customer || '',
-    phone: req.body.phone || '',
-    address: req.body.address || '',
-    photos,
-    note: req.body.note || ''
-  });
-});
-
-app.get('/admin', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
-app.get('/{*splat}', (req, res) => {
-  if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'غير موجود' });
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.use((err, _req, res, _next) => res.status(400).json({ error: err.message || 'حدث خطأ' }));
-module.exports = app;
+const WA='201012029678';
+let products=[]; let cart=JSON.parse(localStorage.getItem('alnonatCart')||'[]');
+const $=s=>document.querySelector(s);
+async function load(){products=await fetch('/api/products').then(r=>r.json()); renderProducts(); updateCart();}
+function renderProducts(){const grid=$('#productsGrid'); if(!products.length){grid.innerHTML='<div class="loading">لا توجد منتجات حاليًا.</div>';return}grid.innerHTML=products.map(p=>`<article class="product"><img class="product-img" src="${p.image}" alt="${escapeHtml(p.name)}"><div class="product-body">${p.badge?`<span class="badge">${escapeHtml(p.badge)}</span>`:''}<h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description)}</p><div class="price">${p.price} ج.م</div>${p.bundlePrice?`<div class="old-note">عرض ${p.bundleQty} منتجات بـ ${p.bundlePrice} ج.م</div>`:''}<button class="primary-btn" onclick="add('${p.id}')">أضف إلى السلة 🛒</button></div></article>`).join('')}
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function add(id){const p=products.find(x=>x.id===id);const item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({id,qty:1});save();openCart()}
+function save(){localStorage.setItem('alnonatCart',JSON.stringify(cart));updateCart()}
+function updateCart(){$('#cartCount').textContent=cart.reduce((a,x)=>a+x.qty,0)}
+function totals(){let total=0;for(const i of cart){const p=products.find(x=>x.id===i.id);if(!p)continue; total += (i.qty>=p.bundleQty && p.bundlePrice ? Math.floor(i.qty/p.bundleQty)*p.bundlePrice+(i.qty%p.bundleQty)*p.price : i.qty*p.price)}return total}
+function openCart(){$('#cartModal').classList.remove('hidden');renderCart()}
+function renderCart(){const box=$('#cartItems');if(!cart.length){box.innerHTML='<p>السلة فارغة.</p>'}else box.innerHTML=cart.map(i=>{const p=products.find(x=>x.id===i.id);return `<div class="cart-row"><div><b>${escapeHtml(p.name)}</b><br><small>${p.price} ج.م</small></div><div class="qty"><button onclick="changeQty('${i.id}',-1)">−</button> ${i.qty} <button onclick="changeQty('${i.id}',1)">+</button></div></div>`}).join('');$('#cartTotal').textContent=totals()}
+function changeQty(id,d){const i=cart.find(x=>x.id===id);i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);save();renderCart()}
+$('#cartBtn').onclick=openCart;
+$('#checkoutBtn').onclick=()=>{$('#cartModal').classList.add('hidden');$('#orderModal').classList.remove('hidden')};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('.modal').classList.add('hidden'));
+$('#orderForm').onsubmit=async e=>{e.preventDefault();if(!cart.length)return alert('السلة فارغة');const fd=new FormData(e.target);fd.append('items',JSON.stringify(cart));const r=await fetch('/api/order',{method:'POST',body:fd});const o=await r.json();const lines=cart.map(i=>{const p=products.find(x=>x.id===i.id);return `- ${p.name} × ${i.qty}`}).join('%0A');const msg=`مرحبًا، أريد عمل طلب من النون.%0Aرقم الطلب: ${o.orderId}%0Aالمنتجات:%0A${lines}%0Aالإجمالي: ${totals()} ج.م%0Aالاسم: ${encodeURIComponent(o.customer)}%0Aالهاتف: ${encodeURIComponent(o.phone)}%0Aالعنوان: ${encodeURIComponent(o.address)}%0Aملاحظات: ${encodeURIComponent(o.note||'لا يوجد')}`;window.location.href=`https://wa.me/${WA}?text=${msg}`;cart=[];save()};
+load();
