@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>النون | كل ما تحتاجونه في مكان واحد</title>
+<meta name="description" content="النون - منتجات وخدمات جميلة للأطفال.">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <button class="icon-btn" id="cartBtn" aria-label="السلة">🛒<span id="cartCount">0</span></button>
+    <a class="logo" href="#top"><span>النون</span><small>STORE ♥</small></a>
+    <a class="contact-btn" href="#contact">تواصل معنا</a>
+  </div>
+</header>
+<main id="top">
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">♥ متجر صغير لكل ما هو جميل</div>
+    <h1>مرحبا بكم يا نونات</h1>
+    <p>كل ما تحتاجونه في مكان واحد</p>
+    <a class="primary-btn" href="#products">تسوق الآن 🛍️</a>
+  </div>
+  <div class="hero-art"><div class="spark s1">★</div><div class="spark s2">♥</div><div class="cloud">☁</div><div class="girl">🎀</div></div>
+</section>
+<section class="products-section" id="products">
+  <div class="section-title"><span>♥</span><h2>منتجاتنا</h2><span>♥</span></div>
+  <div id="productsGrid" class="products-grid"><div class="loading">جاري تحميل المنتجات...</div></div>
+</section>
+<section class="features">
+  <div><b>🎁</b><strong>تغليف هدايا</strong><span>لكل طلب</span></div>
+  <div><b>🚚</b><strong>توصيل سريع</strong><span>إلى جميع أنحاء مصر</span></div>
+  <div><b>🛡️</b><strong>منتجات عالية الجودة</strong><span>نحرص على رضاكم</span></div>
+  <div><b>☎️</b><strong>خدمة عملاء</strong><span>متاحة 24/7</span></div>
+</section>
+</main>
+<footer id="contact" class="footer">
+  <div class="footer-brand"><div class="footer-logo">النون <small>STORE ♥</small></div><p>كل ما تحتاجونه في مكان واحد</p><div class="social">◉　◎　♪　◉</div></div>
+  <div><h3>روابط سريعة</h3><a href="#top">الرئيسية</a><a href="#products">جميع المنتجات</a><a href="#contact">تواصل معنا</a></div>
+  <div><h3>تواصل معنا</h3><p>📞 01012029678</p><p>✉️ mf409170@gmail.com</p><p>📍 السادات - المنوفية</p></div>
+</footer>
+<div class="copyright">♥ جميع الحقوق محفوظة للنون 2026 ♥</div>
+<div id="cartModal" class="modal hidden"><div class="modal-card"><button class="close" data-close>×</button><h2>سلة المشتريات</h2><div id="cartItems"></div><div class="cart-total">الإجمالي: <b id="cartTotal">0</b> ج.م</div><button class="primary-btn full" id="checkoutBtn">إتمام الطلب</button></div></div>
+<div id="orderModal" class="modal hidden"><div class="modal-card"><button class="close" data-close>×</button><h2>إتمام الطلب</h2><p class="muted">لو المنتج سكتش، يمكنك إرفاق صور الأطفال هنا.</p><form id="orderForm"><input name="customer" placeholder="الاسم" required><input name="phone" placeholder="رقم الهاتف" required><input name="address" placeholder="العنوان" required><textarea name="note" placeholder="ملاحظات إضافية"></textarea><label class="file-label">إرفاق صور الأطفال <input type="file" name="photos" accept="image/*" multiple></label><button class="primary-btn full">إرسال الطلب عبر واتساب</button></form></div></div>
+<script src="/app.js"></script>
+</body></html>
