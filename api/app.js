@@ -63,7 +63,7 @@ async function uploadFileToGithub(file){
   const safeExt=['.jpg','.jpeg','.png','.webp','.gif'].includes(ext)?ext:'.jpg';
   const base=String(file.originalname||'image').replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50)||'image';
   const filename=`${Date.now()}-${Math.random().toString(36).slice(2,8)}-${base}${safeExt}`;
-  const path=`uploads/${filename}`;
+  const path=`public/uploads/${filename}`;
   const content=file.buffer.toString('base64');
   await githubRequest(`${GH_API}/repos/${cfg.repo}/contents/${path}`,{
     method:'PUT',
