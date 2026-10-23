@@ -97,19 +97,5 @@
     "images": [
       "/uploads/hair-bows.jpg"
     ]
-  },
-  {
-    "id": "rabbit-light",
-    "name": "إضاءة أرنب",
-    "price": 109,
-    "bundlePrice": 0,
-    "bundleQty": 2,
-    "description": "إضاءة لطيفة تضيف لمسة جميلة لغرفة الأطفال.",
-    "image": "/uploads/rabbit-light.jpg",
-    "badge": "",
-    "active": true,
-    "images": [
-      "/uploads/rabbit-light.jpg"
-    ]
   }
 ]
